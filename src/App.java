@@ -1,13 +1,11 @@
-import java.util.List;
-
-import com.elenasoft.behavior.FacebookApi;
-import com.elenasoft.behavior.FacebookUser;
-import com.elenasoft.behavior.GoogleApi;
-import com.elenasoft.behavior.GoogleUser;
+import com.elenasoft.behavior.Aggregate;
+import com.elenasoft.behavior.FacebookUserAgregate;
+import com.elenasoft.behavior.GoogleUserAggregate;
+import com.elenasoft.behavior.Iterator;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        
+        /*
         GoogleUser[] googleUser = GoogleApi.getGoogleUser();
         
         for(int i = 0; i < googleUser.length; i++){
@@ -16,9 +14,27 @@ public class App {
         }
         
         List<FacebookUser> facebookUsers = FacebookApi.getFacebookUsers();
+
         for(int i = 0; i < facebookUsers.size(); i++){
             System.out.println(facebookUsers.get(i));
              
         }
+        */
+
+        Aggregate googleUserAggregate = new GoogleUserAggregate();
+        Iterator googleUSerIterator = googleUserAggregate.createIterator();
+        printUsers(googleUSerIterator);
+
+        Aggregate facebookUserAggregate = new FacebookUserAgregate();
+        Iterator facebookUSerIterator = facebookUserAggregate.createIterator();
+        printUsers(facebookUSerIterator);
+    
+    }
+
+    public static void printUsers(Iterator iterator){
+        while (!iterator.isDone()) 
+        {
+           System.out.println(iterator.currentItem());
+        } 
     }
 }
